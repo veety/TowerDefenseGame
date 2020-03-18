@@ -1,0 +1,15 @@
+import sys, time, json
+from PyQt5.QtWidgets import QApplication
+from gui import GUI
+from board import *
+from globals import *
+
+def main():
+    board=gameBoard(boardWidth, boardHeight)
+    global app
+    app = QApplication(sys.argv)
+    gui=GUI(board,squareSize)
+    sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()

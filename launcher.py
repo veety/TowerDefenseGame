@@ -16,9 +16,6 @@ def main():
     app = QApplication(sys.argv)
     gui=GUI(board,squareSize)
 
-    #testTower=Tower()
-    #board.add_tower(testTower,Coordinates(4,2))
-
     timer=Timer(gameSpeed,gui,board)
     sys.exit(app.exec_())
 

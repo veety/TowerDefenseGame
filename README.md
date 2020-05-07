@@ -1,4 +1,4 @@
-Tornipuolustus
+Kouluprojektina toteutettu tornipuolustuspeli.
 
 Kansio TowerDefense on peli python-projektina. Pelin voi käynnistää ajamalla launcher.py-tiedoston python-tulkilla.
 Kansiossa gui on graafiseen käyttöliittymään liittyviä png-kuvia ja kansiossa items muita grafiikkaesineiden kuvia.

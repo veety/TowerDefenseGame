@@ -1,40 +1,52 @@
-from PyQt5 import QtWidgets, QtGui, QtCore
-from globals import squareSize
+from PyQt5 import QtWidgets
+from PyQt5.QtGui import *
 
-class EnemyGraphicsItem(QtWidgets.QGraphicsPolygonItem):
-
-    def __init__(self,enemy):
-        super(EnemyGraphicsItem, self).__init__()
-        self.enemy=enemy
-        self.square_size=squareSize
-        brush = QtGui.QBrush(1)
-        self.setBrush(brush)
-        self.constructTriangleVertices()
-        self.updateAll()
-
-    def constructTriangleVertices(self):
-        triangle = QtGui.QPolygonF()
-        triangle.append(QtCore.QPointF(self.square_size / 2, 0))
-        triangle.append(QtCore.QPointF(0, self.square_size))
-        triangle.append(QtCore.QPointF(self.square_size, self.square_size))
-        triangle.append(QtCore.QPointF(self.square_size / 2, 0))
-        self.setPolygon(triangle)
+class EnemyGraphicsItem(QtWidgets.QGraphicsPixmapItem):
+    def __init__(self, gui, enemy):
+        super().__init__()
+        self.gui=gui
+        self.enemy = enemy
+        self.fullHealth=str(self.enemy.health)
+        self.enemy.graphicsItem = self
+        self.square_size = 40
         self.setTransformOriginPoint(self.square_size / 2, self.square_size / 2)
+        self.updateAll()
 
     def updateAll(self):
         self.updatePosition()
         self.updateRotation()
 
     def updatePosition(self):
-        self.setX(self.enemy.position_x-squareSize/2)
-        self.setY(self.enemy.position_y-squareSize/2)
+        self.setX(self.enemy.position_x - self.square_size / 2)
+        self.setY(self.enemy.position_y - self.square_size / 2)
 
     def updateRotation(self):
-        if self.enemy.get_direction()=='RIGHT':
+        if self.enemy.get_direction() == 'RIGHT':
             self.setRotation(90)
-        if self.enemy.get_direction()=='UP':
+        if self.enemy.get_direction() == 'UP':
             self.setRotation(0)
-        if self.enemy.get_direction()=='LEFT':
+        if self.enemy.get_direction() == 'LEFT':
             self.setRotation(270)
-        if self.enemy.get_direction()=='DOWN':
-            self.setRotation(180)
+        if self.enemy.get_direction() == 'DOWN':
+                self.setRotation(180)
+
+class EnemyGraphicsItemA(EnemyGraphicsItem):
+    def __init__(self, gui, enemy):
+        super().__init__(gui, enemy)
+        self.pixmap=QPixmap()
+        self.pixmap.load("items/enemy_a.png")
+        self.setPixmap(self.pixmap)
+
+class EnemyGraphicsItemB(EnemyGraphicsItem):
+    def __init__(self, gui, enemy):
+        super().__init__(gui, enemy)
+        self.pixmap=QPixmap()
+        self.pixmap.load("items/enemy_b.png")
+        self.setPixmap(self.pixmap)
+
+class EnemyGraphicsItemC(EnemyGraphicsItem):
+    def __init__(self, gui, enemy):
+        super().__init__(gui, enemy)
+        self.pixmap=QPixmap()
+        self.pixmap.load("items/enemy_c.png")
+        self.setPixmap(self.pixmap)

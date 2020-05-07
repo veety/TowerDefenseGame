@@ -1,42 +1,34 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
-from globals import squareSize
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+from PyQt5.QtWidgets import QLabel, QGraphicsProxyWidget
 from math import *
 from enemy import *
 
-class TowerGraphicsItem(QtWidgets.QGraphicsPolygonItem):
+class TowerGraphicsItem(QtWidgets.QGraphicsPixmapItem):
 
     def __init__(self,tower,gui):
         super(TowerGraphicsItem, self).__init__()
         self.gui=gui
         self.tower=tower
-        self.square_size=squareSize
+        self.tower.graphicsItem=self
+        self.square_size=40
         self.selected=False
-        brush = QtGui.QBrush(1)
-        self.setBrush(brush)
+        self.pixmap=QPixmap()
+        if self.tower.type==1:
+            self.pixmap.load("items/tower_1.png")
+        elif self.tower.type == 2:
+            self.pixmap.load("items/tower_2.png")
+        elif self.tower.type == 3:
+            self.pixmap.load("items/tower_freeze.png")
+        elif self.tower.type == 4:
+            self.pixmap.load("items/tower_4.png")
+        self.setPixmap(self.pixmap)
         self.drawRange=False
-        self.constructTriangleVertices()
-        self.setX(self.tower.position_x - squareSize / 2)
-        self.setY(self.tower.position_y - squareSize / 2)
-        self.updateRotation()
-
-    def mousePressEvent(self, event):
-        if self.tower.is_purchasable==True and self.gui.tower_selected==None:
-            self.gui.tower_selected=self.tower
-        if not self.tower.is_purchasable:
-            self.drawRange=True
-
-
-
-    def constructTriangleVertices(self):
-        triangle = QtGui.QPolygonF()
-        triangle.append(QtCore.QPointF(self.square_size / 2, 0))
-        triangle.append(QtCore.QPointF(0, self.square_size))
-        triangle.append(QtCore.QPointF(self.square_size, self.square_size))
-        triangle.append(QtCore.QPointF(self.square_size / 2, 0))
-        self.setPolygon(triangle)
+        self.setX(self.tower.position_x - self.square_size / 2)
+        self.setY(self.tower.position_y - self.square_size / 2)
         self.setTransformOriginPoint(self.square_size / 2, self.square_size / 2)
+        self.updateRotation()
 
     def updateRotation(self):
         try:
@@ -61,3 +53,20 @@ class TowerGraphicsItem(QtWidgets.QGraphicsPolygonItem):
             self.setRotation(rotation)
         except:
             pass
+
+    def mousePressEvent(self, event):
+        if self.tower.is_purchasable==False and self.gui.towerMenu==False and self.gui.tower_selected==None:
+            self.gui.towerMenu=True
+            self.gui.draw_range(self.tower, self.tower.position_x/self.square_size-1/2, self.tower.position_y/self.square_size-1/2, True)
+            self.gui.tower_menu_(self.tower, self.tower.position_x+1.5*self.square_size+101,self.tower.position_y+118)
+
+class ShopTowerGraphicsItem(TowerGraphicsItem):
+
+    def __init__(self,tower,gui):
+        super(ShopTowerGraphicsItem,self).__init__(tower,gui)
+        self.pixmap=self.pixmap.scaled(100, 100)
+        self.setPixmap(self.pixmap)
+
+    def mousePressEvent(self, event):
+        if self.tower.is_purchasable==True and self.gui.tower_selected==None and self.gui.towerMenu==False:
+            self.gui.tower_selected=self.tower

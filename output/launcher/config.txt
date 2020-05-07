@@ -1,0 +1,12 @@
+Money: 100
+Health: 100
+EnemyPath: RRRRDDDDDDLLLUUURRRRRRRRRRRRDDDDRRRRRR
+Wave: [
+			[a,4,a,4,a],
+			[a,3,a,3,a,3,a,3,a,3,a],
+			[a,1,a,1,a,1,a,1,a],
+			[a,a,a,2,a,a,a,2,a,a,a],
+			[b,1,a,1,b,1,a,1,b],
+			[b,b,b,2,a,b,a,2,b,a,b],
+			[b,c,b,2,1,a,c,b,a,2,b,a,b],
+	    ]

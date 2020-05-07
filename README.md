@@ -19,7 +19,7 @@ Config.txt:n muokkausohjeet:
 
 Python-versio tarvitsee PyQt5-kirjaston. ("pip install pyqt5")
 
-Pythonversio ajetaan launcher.py-tiedostosta. Tein myös exe-ohjelman, jonka voi ladata google drivestani. Linkki siihen löytyy master-haarasta. Paina drivessa "lataa kaikki".
+Pythonversio ajetaan launcher.py-tiedostosta. Tein myös exe-ohjelman, joka löytyy TowerDefenseExe-kansiosta.
 Exe-ohjelma tulee samanlaisessa kansiossa kuin py-ohjelma. Kuvia ja config.txt:tä voi siis vapaasti muokata siinäkin. Suorita launcher.exe pelataksesi peliä.
 
 Peliohjeet:
